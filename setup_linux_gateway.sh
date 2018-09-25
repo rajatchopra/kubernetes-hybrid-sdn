@@ -14,8 +14,6 @@ ovs-vsctl add-port br-int patch-br-int-win -- set interface patch-br-int-win typ
 
 ovn-nbctl ls-add ext_${NODE_NAME}-win
 ovn-nbctl --may-exist lsp-add ext_${NODE_NAME}-win ${NODE_NAME}-win -- lsp-set-addresses ${NODE_NAME}-win unknown
-# FIXME: set correct options for mac address
-# ovn-nbctl --may-exist lsp-add ext_${NODE_NAME}-win etor-${NODE_NAME}-win -- set logical_switch_port etor-${NODE_NAME}-win type=router options:router-port=rtoe-${NODE_NAME}-win addresses=${ROUTER_MAC}
-ovn-nbctl --may-exist lsp-add ext_${NODE_NAME}-win etor-${NODE_NAME}-win -- set logical_switch_port etor-${NODE_NAME}-win type=router options:router-port=rtoe-${NODE_NAME}-win
+ovn-nbctl --may-exist lsp-add ext_${NODE_NAME}-win etor-${NODE_NAME}-win -- set logical_switch_port etor-${NODE_NAME}-win type=router options:router-port=rtoe-${NODE_NAME}-win addresses=\"${ROUTER_MAC}\"
 
 ovn-nbctl --may-exist lrp-add GR_${NODE_NAME} rtoe-${NODE_NAME}-win ${ROUTER_MAC} ${ROUTER_IP}
