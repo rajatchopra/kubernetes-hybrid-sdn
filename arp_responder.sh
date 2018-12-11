@@ -3,7 +3,6 @@
 mac="0a:0a:10:10:10:10"
 ip="11.128.0.1"
 
-
 hex_ip=$(printf '%02x' ${ip//./ }; echo)
 hex_mac=$(printf '%02s' ${mac//:/ }; echo)
 echo ${hex_ip}
@@ -18,4 +17,5 @@ actions=("move:NXM_OF_ETH_SRC[]->NXM_OF_ETH_DST[],\
                        in_port")
 echo $actions
 
+ovs-ofctl del-flows -O OpenFlow13 br-win "table=0, arp"
 ovs-ofctl add-flow -O OpenFlow13 br-win "table=0,dl_type=0x0806,nw_dst=${ip},actions=${actions}"
